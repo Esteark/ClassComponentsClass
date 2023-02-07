@@ -8,3 +8,7 @@ export const getInfoLocal = () => {
   let arrayImc = JSON.parse(localStorage.getItem("imc")) || [];
   return arrayImc;
 };
+
+export const UpdateLocal = (data) => {
+  localStorage.setItem("imc", JSON.stringify(data));
+};

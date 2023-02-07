@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getInfoLocal, saveLocal } from "../../../service";
+import { getInfoLocal, saveLocal, UpdateLocal } from "../../../service";
 import "./styles.scss";
 class Imc extends React.Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class Imc extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleImcCalculate = this.handleImcCalculate.bind(this);
+    // this.handleDelete = this.handleDelete.bind(this);
   }
 
   updateInfo() {
@@ -51,6 +52,21 @@ class Imc extends React.Component {
     });
     this.updateInfo();
   }
+
+  handleDelete = (index) => {
+    console.log(index);
+    this.setState((state) => {
+      const updateListImc = state.listImc.filter(
+        (_, position) => position !== index
+      );
+
+      return {
+        ...state,
+        listImc: updateListImc,
+      };
+    });
+    UpdateLocal(this.state.listImc);
+  };
 
   render() {
     return (
@@ -119,6 +135,7 @@ class Imc extends React.Component {
               <th>Peso</th>
               <th>Altura</th>
               <th>Imc</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -128,6 +145,15 @@ class Imc extends React.Component {
                 <td>{item.weight}</td>
                 <td>{item.height}</td>
                 <td>{item.imc}</td>
+                <td>
+                  <button
+                    onClick={() => {
+                      this.handleDelete(index);
+                    }}
+                  >
+                    ❌
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
